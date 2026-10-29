@@ -23,12 +23,7 @@ public class ContaService implements IService<Conta> {
 
     public ContaService() {
         Cliente cliente = Cliente.builder().nome("José").cpf("11111111111").build();
-//        Cliente cliente1 = new Cliente();
-//        cliente1.setNome("José");
-//        cliente1.setCpf("11111111111");
         contas.add(new Conta(1010, cliente));
-//        contas.add(new Conta(1010, new Cliente("jose", "11111111111")));
-//        contas.add(new Conta(1011, new Cliente("jose", "11111111111")));
     }
 
     @Override

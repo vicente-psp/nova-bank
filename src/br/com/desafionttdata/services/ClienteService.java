@@ -14,15 +14,8 @@ public class ClienteService implements IService<Cliente> {
     private static ClienteService clienteService;
 
     private ClienteService() {
-//        Cliente cliente = new ClienteBuilder().nome("xxxx").cpf("1111").build();
-//        Cliente cliente = new Cliente(); // construtor default
         Cliente cliente = Cliente.builder().nome("José").cpf("11111111111").email("email@teste").build();
-//        cliente.setNome("José");
-//        cliente.setCpf("11111111111");
-//        cliente.setEmail("email@teste");
-//        cliente.setTelefone("64648464564");
         clientes.add(cliente);
-//        clientes.add(new Cliente("José", "11111111111"));
     }
 
     public static ClienteService getClienteService() {
@@ -54,9 +47,6 @@ public class ClienteService implements IService<Cliente> {
         String cpf = sc.next();
         Cliente clienteDuplicado = getClienteByCpf(cpf);
         if (clienteDuplicado == null) {
-//            Cliente cliente = new Cliente();
-//            cliente.setNome(nome);
-//            cliente.setCpf(cpf);
             Cliente cliente = Cliente.builder().nome(nome).cpf(cpf).build();
             if (!cliente.isValidoNome()) {
                 throw new Exception("Nome Inválido");

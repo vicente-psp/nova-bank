@@ -1,12 +1,10 @@
 package br.com.desafionttdata;
 
-import br.com.desafionttdata.models.Cliente;
 import br.com.desafionttdata.models.Conta;
 import br.com.desafionttdata.services.ClienteService;
 import br.com.desafionttdata.services.ContaService;
 import br.com.desafionttdata.utils.UtilsFormat;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
