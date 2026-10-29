@@ -69,6 +69,15 @@ public class Cliente {
     }
 
 
+    public static Cliente copy(Cliente cliente) {
+        return Cliente.builder()
+                    .nome(cliente.getNome())
+                    .cpf(cliente.getCpf())
+                    .email(cliente.getEmail())
+                    .telefone(cliente.getTelefone())
+                .build();
+    }
+
     public String getNome() {
         return nome;
     }

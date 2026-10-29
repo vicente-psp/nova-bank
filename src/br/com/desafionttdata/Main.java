@@ -23,7 +23,7 @@ public class Main {
             int menu = -1;
 
             do {
-                printMenu();
+                imprimirMenu();
                 menu = UtilsFormat.intValue(sc);
                 switch (menu) {
                     case 0:
@@ -58,6 +58,9 @@ public class Main {
                         break;
                     case 10:
                         imprimirHistorico();
+                        break;
+                    case 11:
+                        atualizarCliente();
                         break;
                     default:
                         System.out.println("OPÇÃO INVÁLIDA");
@@ -150,6 +153,14 @@ public class Main {
         }
     }
 
+    private static void atualizarCliente() {
+        try {
+            clienteService.atualizarCliente();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     private static void cadastrarConta() {
         try {
             contaService.cadastrar();
@@ -158,7 +169,7 @@ public class Main {
         }
     }
 
-    private static void printMenu() {
+    private static void imprimirMenu() {
         System.out.println("========== NOVABANK ==========");
         System.out.println("1 - Cadastrar cliente");
         System.out.println("2 - Listar clientes");
@@ -170,6 +181,7 @@ public class Main {
         System.out.println("8 - Realizar saque");
         System.out.println("9 - Realizar transferência");
         System.out.println("10 - Consultar histórico");
+        System.out.println("11 - Atualizar cliente");
         System.out.println("0 - Sair");
         System.out.println("Escolha uma opção:");
     }
