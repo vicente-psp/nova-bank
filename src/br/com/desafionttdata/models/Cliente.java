@@ -36,19 +36,11 @@ public class Cliente {
     }
 
     public boolean isValidoNome() {
-        boolean resp = !nome.isBlank() && !nome.trim().isEmpty() && !nome.startsWith("\"") && nome.length() > 1;
-        if (!resp) {
-            System.out.println("Nome inválido");
-        }
-        return resp;
+        return !nome.isBlank() && !nome.trim().isEmpty() && !nome.startsWith("\"") && nome.length() > 1;
     }
 
     public boolean isValidoCPF() {
-        boolean resp = cpf.length() == 11;
-        if (!resp) {
-            System.out.println("CPF inválido");
-        }
-        return resp;
+        return !cpf.isBlank() && !cpf.trim().isEmpty() && !cpf.startsWith("\"") && cpf.length() == 11;
     }
 
     @Override

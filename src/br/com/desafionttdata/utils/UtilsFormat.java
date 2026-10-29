@@ -10,6 +10,7 @@ public class UtilsFormat {
                 return new Integer(menuStr);
             } catch (Exception e) {
                 System.out.println("== VALOR INVÁLIDO ==");
+                System.out.println("Digite novamente!");
             }
         } while (true);
     }
@@ -31,7 +32,11 @@ public class UtilsFormat {
         int contador = 1;
         for (int i = values.length - 1; i >= 0; i--) { // 7
             if (contador % 3 == 0) {
-                novoValor = "." + values[i] + novoValor;
+                if (values.length == contador) {
+                    novoValor = values[i] + novoValor;
+                } else {
+                    novoValor = "." + values[i] + novoValor;
+                }
             } else {
                 novoValor = values[i] + novoValor;
             }

@@ -145,26 +145,19 @@ public class Main {
     }
 
     private static void cadastrarCliente() {
-        System.out.println("Cadastrando um cliente");
-        System.out.println("Informe o nome");
-        String nome = sc.next();
-        System.out.println("Informe o cpf");
-        String cpf = sc.next();
-        Cliente cliente = new Cliente(nome, cpf);
-        clienteService.cadastrar(cliente);
-        System.out.println("Cliente cadastrado com sucesso!");
+        try {
+            clienteService.cadastrar();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private static void cadastrarConta() {
-        System.out.println("Criar conta");
-        System.out.println("Informe o número da conta");
-        int numero = sc.nextInt();
-        System.out.println("Informe o cpf do cliente");
-        String cpf = sc.next();
-        Cliente cliente = clienteService.getClienteByCpf(cpf);
-        Conta conta = new Conta(numero, cliente);
-        contaService.cadastrar(conta);
-        System.out.println("Conta cadastrada com sucesso!");
+        try {
+            contaService.cadastrar();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private static void printMenu() {

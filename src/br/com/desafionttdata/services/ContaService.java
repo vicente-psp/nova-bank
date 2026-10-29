@@ -13,7 +13,10 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+
 public class ContaService implements IService<Conta> {
+    static ClienteService clienteService = new ClienteService();
+
     List<Conta> contas = new ArrayList<>();
     List<Historico> historicos = new ArrayList<>();
     Scanner sc = new Scanner(System.in);
@@ -24,8 +27,19 @@ public class ContaService implements IService<Conta> {
     }
 
     @Override
-    public void cadastrar(Conta conta) {
+    public void cadastrar() throws Exception {
+        System.out.println("Cadastrando uma nova conta");
+        System.out.println("Informe o número da conta");
+        int numero = sc.nextInt();
+        System.out.println("Informe o cpf do cliente");
+        String cpf = sc.next();
+        Cliente cliente = clienteService.getClienteByCpf(cpf);
+        if (cliente == null) {
+            throw new Exception("Cliente não localizado");
+        }
+        Conta conta = new Conta(numero, cliente);
         contas.add(conta);
+        System.out.println("Conta cadastrada com sucesso!");
     }
 
     @Override
