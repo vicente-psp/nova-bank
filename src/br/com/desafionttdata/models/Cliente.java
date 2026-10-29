@@ -1,5 +1,7 @@
 package br.com.desafionttdata.models;
 
+import br.com.desafionttdata.utils.Utils;
+
 import java.util.List;
 
 public class Cliente {
@@ -115,15 +117,22 @@ public class Cliente {
     }
 
     public boolean isValidoNome() {
-        return !nome.isBlank() && !nome.trim().isEmpty() && !nome.startsWith("\"") && nome.length() > 1;
+        return Utils.isValidoTexto(nome);
     }
 
     public boolean isValidoCPF() {
-        return !cpf.isBlank() && !cpf.trim().isEmpty() && !cpf.startsWith("\"") && cpf.length() == 11;
+        return Utils.isValidoCPF(cpf);
     }
 
     @Override
     public String toString() {
-        return "nome: " + nome + ", cpf: " +cpf;
+        String clienteFormatado = "nome: " + nome + ", cpf: " + cpf;
+        if (Utils.isValidoTexto(email)) {
+            clienteFormatado = clienteFormatado + ", email: " + email;
+        }
+        if (Utils.isValidoTexto(telefone)) {
+            clienteFormatado = clienteFormatado + ", telefone: " + telefone;
+        }
+        return clienteFormatado;
     }
 }

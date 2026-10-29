@@ -3,7 +3,7 @@ package br.com.desafionttdata;
 import br.com.desafionttdata.models.Conta;
 import br.com.desafionttdata.services.ClienteService;
 import br.com.desafionttdata.services.ContaService;
-import br.com.desafionttdata.utils.UtilsFormat;
+import br.com.desafionttdata.utils.Utils;
 
 import java.util.Scanner;
 
@@ -24,7 +24,7 @@ public class Main {
 
             do {
                 imprimirMenu();
-                menu = UtilsFormat.intValue(sc);
+                menu = Utils.intValue(sc);
                 switch (menu) {
                     case 0:
                         System.out.println("== FINALIZANDO O NOVA BANK ==");

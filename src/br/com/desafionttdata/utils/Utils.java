@@ -2,7 +2,7 @@ package br.com.desafionttdata.utils;
 
 import java.util.Scanner;
 
-public class UtilsFormat {
+public class Utils {
     public static int intValue(Scanner sc) {
         do {
             try {
@@ -43,5 +43,13 @@ public class UtilsFormat {
             contador++;
         }
         return novoValor;
+    }
+
+    public static boolean isValidoCPF(String cpf) {
+        return cpf != null && !cpf.isBlank() && !cpf.trim().isEmpty() && !cpf.startsWith("\"") && cpf.length() == 11;
+    }
+
+    public static boolean isValidoTexto(String texto) {
+        return texto != null && !texto.isBlank() && !texto.trim().isEmpty() && !texto.startsWith("\"") && texto.length() > 1;
     }
 }

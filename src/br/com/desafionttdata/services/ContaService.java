@@ -6,7 +6,7 @@ import br.com.desafionttdata.interfaces.IService;
 import br.com.desafionttdata.models.Cliente;
 import br.com.desafionttdata.models.Conta;
 import br.com.desafionttdata.models.Historico;
-import br.com.desafionttdata.utils.UtilsFormat;
+import br.com.desafionttdata.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,12 +62,12 @@ public class ContaService implements IService<Conta> {
         }
         realizarSaque(valor, contaDebitada);
         realizarDeposito(valor, contaCreditada);
-        historicos.add(new Historico(UtilsFormat.valorFormatado(valor), Operacao.TRANFERENCIA, contaDebitada, contaCreditada));
+        historicos.add(new Historico(Utils.valorFormatado(valor), Operacao.TRANFERENCIA, contaDebitada, contaCreditada));
     }
 
     public void depositar(long valor, Conta contaCreditada) throws Exception {
         realizarDeposito(valor, contaCreditada);
-        historicos.add(new Historico(UtilsFormat.valorFormatado(valor), Operacao.DEPOSITO, null, contaCreditada));
+        historicos.add(new Historico(Utils.valorFormatado(valor), Operacao.DEPOSITO, null, contaCreditada));
     }
 
     private void realizarDeposito(long valor, Conta conta) throws Exception {
@@ -80,7 +80,7 @@ public class ContaService implements IService<Conta> {
 
     public void sacar(long valor, Conta contaDebitada) throws Exception {
         realizarSaque(valor, contaDebitada);
-        historicos.add(new Historico(UtilsFormat.valorFormatado(valor), Operacao.SAQUE, contaDebitada, null));
+        historicos.add(new Historico(Utils.valorFormatado(valor), Operacao.SAQUE, contaDebitada, null));
     }
 
     private void realizarSaque(long valor, Conta contaDebitada) throws Exception {

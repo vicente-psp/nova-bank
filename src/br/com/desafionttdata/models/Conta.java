@@ -1,6 +1,6 @@
 package br.com.desafionttdata.models;
 
-import br.com.desafionttdata.utils.UtilsFormat;
+import br.com.desafionttdata.utils.Utils;
 
 public class Conta {
     private int numero;
@@ -25,11 +25,11 @@ public class Conta {
     }
 
     public String saldoFormatado() {
-        return UtilsFormat.valorFormatado(saldo);
+        return Utils.valorFormatado(saldo);
     }
 
     @Override
     public String toString() {
-        return "Conta de número: " + numero + " | saldo: " + UtilsFormat.valorFormatado(saldo) + " | cliente: " + cliente.toString();
+        return "Conta de número: " + numero + " | saldo: " + Utils.valorFormatado(saldo) + " | cliente: " + cliente.toString();
     }
 }

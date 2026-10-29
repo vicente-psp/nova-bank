@@ -2,6 +2,7 @@ package br.com.desafionttdata.services;
 
 import br.com.desafionttdata.interfaces.IService;
 import br.com.desafionttdata.models.Cliente;
+import br.com.desafionttdata.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,14 +82,22 @@ public class ClienteService implements IService<Cliente> {
         System.out.println("Cadastrando um cliente");
         System.out.println("Informe o nome");
         String nome = sc.next();
+        if (!Utils.isValidoTexto(nome)) {
+            throw new Exception("Nome Inválido");
+        }
         System.out.println("Informe o cpf");
         String cpf = sc.next();
-        System.out.println("Informe o email"); // corrigir a obrigatoriedade de informar este dado, ver exemplo do atualizarCadastro
-        String email = sc.next();
-        System.out.println("Informe o telefone"); // corrigir a obrigatoriedade de informar este dado, ver exemplo do atualizarCadastro
-        String telefone = sc.next();
+        if (!Utils.isValidoCPF(cpf)) {
+            throw new Exception("CPF Inválido");
+        }
+
         Cliente clienteDuplicado = getClienteByCpf(cpf);
         if (clienteDuplicado == null) {
+            sc.nextLine(); // para parar com o pulo na hora de capturar o valor do terminal
+            System.out.println("Informe o email");
+            String email = sc.nextLine();
+            System.out.println("Informe o telefone");
+            String telefone = sc.nextLine();
             Cliente cliente = Cliente
                         .builder()
                         .nome(nome)
@@ -96,14 +105,8 @@ public class ClienteService implements IService<Cliente> {
                         .email(email)
                         .telefone(telefone)
                     .build();
-            if (!cliente.isValidoNome()) {
-                throw new Exception("Nome Inválido");
-            } else if (!cliente.isValidoCPF()) {
-                throw new Exception("CPF Inválido");
-            } else {
-                clientes.add(cliente);
-                System.out.println("Cliente cadastrado com sucesso");
-            }
+            clientes.add(cliente);
+            System.out.println("Cliente cadastrado com sucesso");
         } else {
             throw new Exception("Cliente já cadastrado");
         }
