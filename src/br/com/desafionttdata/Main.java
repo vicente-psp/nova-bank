@@ -12,7 +12,7 @@ import java.util.Scanner;
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    static ClienteService clienteService = new ClienteService();
+    static ClienteService clienteService = ClienteService.getClienteService();
     static ContaService contaService = new ContaService();
     static Scanner sc = new Scanner(System.in);
 
