@@ -49,7 +49,7 @@ public class ContaService implements IService<Conta> {
     }
 
     public Conta buscarByNumero(int numeroConta) throws Exception {
-        Conta conta = contas.stream().filter(obj -> obj.getNumero() == numeroConta).findFirst().orElse(null);
+        Conta conta = contas.stream().filter(obj -> obj.getNumero() == numeroConta).findFirst().map(Conta::copy).orElse(null);
         if (conta == null) {
             throw new Exception("Conta " + numeroConta + " não foi localizada.");
         }
@@ -114,5 +114,13 @@ public class ContaService implements IService<Conta> {
     private boolean achouConta(Conta conta, Historico obj) {
         return (obj.getContaCreditada() != null && obj.getContaCreditada().getNumero() == conta.getNumero())
                 || (obj.getContaDebitada() != null && obj.getContaDebitada().getNumero() == conta.getNumero());
+    }
+
+    public void bloquearDesbloquearConta(Conta conta, int bloqueio) {
+        contas.forEach(obj -> {
+            if (obj.getNumero() == conta.getNumero()) {
+                obj.setBloqueada(bloqueio == 1);
+            }
+        });
     }
 }

@@ -62,10 +62,27 @@ public class Main {
                     case 11:
                         atualizarCliente();
                         break;
+                    case 12:
+                        bloquearDesbloquearConta();
+                        break;
                     default:
                         System.out.println("OPÇÃO INVÁLIDA");
                 }
             } while (menu != 0);
+        }
+    }
+
+    private static void bloquearDesbloquearConta() {
+        try {
+            System.out.println("Informe qual o número da conta deseja bloquear/desbloquear");
+            int numero = sc.nextInt();
+            Conta conta = contaService.buscarByNumero(numero);
+
+            System.out.println("Digite 1 para bloquear, ou qualquer outro número para desbloquear");
+            int bloqueio = sc.nextInt();
+            contaService.bloquearDesbloquearConta(conta, bloqueio);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -77,7 +94,7 @@ public class Main {
 
             contaService.imprimirHistorico(conta);
         } catch (Exception e) {
-            System.out.println("imprimirHistorico: " + e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 
@@ -182,6 +199,7 @@ public class Main {
         System.out.println("9 - Realizar transferência");
         System.out.println("10 - Consultar histórico");
         System.out.println("11 - Atualizar cliente");
+        System.out.println("12 - Bloquear ou desbloquear uma conta");
         System.out.println("0 - Sair");
         System.out.println("Escolha uma opção:");
     }

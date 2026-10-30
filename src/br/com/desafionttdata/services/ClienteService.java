@@ -75,9 +75,6 @@ public class ClienteService implements IService<Cliente> {
         }
     }
 
-    // refatorar - corrigir a ordem de informar os dados, pois não faz sentido
-    // o usuário informar todos os dados para no final o sistema barrar por
-    // conta do primeiro dado informado
     public void cadastrar() throws Exception {
         System.out.println("Cadastrando um cliente");
         System.out.println("Informe o nome");
