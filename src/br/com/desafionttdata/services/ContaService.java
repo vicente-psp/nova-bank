@@ -2,12 +2,14 @@ package br.com.desafionttdata.services;
 
 import br.com.desafionttdata.enums.Operacao;
 import br.com.desafionttdata.enums.Tipo;
+import br.com.desafionttdata.files.Arquivos;
 import br.com.desafionttdata.interfaces.IService;
 import br.com.desafionttdata.models.Cliente;
 import br.com.desafionttdata.models.Conta;
 import br.com.desafionttdata.models.Historico;
 import br.com.desafionttdata.utils.Utils;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -143,5 +145,26 @@ public class ContaService implements IService<Conta> {
                 obj.setBloqueada(bloqueio == 1);
             }
         });
+    }
+
+    public void exportarMovimentacao(Conta conta) throws IOException {
+        List<String> textos = historicos
+                .stream()
+                .filter(obj -> {
+                    return achouConta(conta, obj);
+                })
+                .map(obj -> {
+                    if (obj.getContaDebitada() != null) {
+                        obj.setTipo(Tipo.DEBITO);
+                    } else {
+                        obj.setTipo(Tipo.CREDITO);
+                    }
+                    return obj;
+                })
+                .map(Historico::toString)
+                .collect(Collectors.toList());
+
+        Arquivos arquivos = new Arquivos();
+        arquivos.criar(textos, "conta-" + conta.getNumero());
     }
 }
