@@ -21,9 +21,18 @@ public class ContaService implements IService<Conta> {
     List<Historico> historicos = new ArrayList<>();
     Scanner sc = new Scanner(System.in);
 
+    private void atualizarSaldoDaConta(long novoSaldo, Conta conta) {
+        contas.forEach(obj -> {
+            if (obj.getNumero() == conta.getNumero()) {
+                obj.setSaldo(novoSaldo);
+            }
+        });
+    }
+
     public ContaService() {
         Cliente cliente = Cliente.builder().nome("José").cpf("11111111111").build();
         contas.add(new Conta(1010, cliente));
+        contas.add(new Conta(1011, cliente));
     }
 
     @Override
@@ -60,6 +69,12 @@ public class ContaService implements IService<Conta> {
         if (contaDebitada.getNumero() == contaCreditada.getNumero()) {
             throw new Exception("Conta debitada deve ser diferente da conta creditada.");
         }
+        if (contaDebitada.isBloqueada()) {
+            throw new Exception("Conta debitada está bloqueada.");
+        }
+        if (contaCreditada.isBloqueada()) {
+            throw new Exception("Conta creditada está bloqueada.");
+        }
         realizarSaque(valor, contaDebitada);
         realizarDeposito(valor, contaCreditada);
         historicos.add(new Historico(Utils.valorFormatado(valor), Operacao.TRANFERENCIA, contaDebitada, contaCreditada));
@@ -74,8 +89,11 @@ public class ContaService implements IService<Conta> {
         if (valor <= 0) {
             throw new Exception("Valor deve ser maior que 0");
         }
+        if (conta.isBloqueada()) {
+            throw new Exception("Conta está bloqueada.");
+        }
         long novoSaldo = conta.getSaldo() + valor;
-        conta.setSaldo(novoSaldo);
+        atualizarSaldoDaConta(novoSaldo, conta);
     }
 
     public void sacar(long valor, Conta contaDebitada) throws Exception {
@@ -83,15 +101,18 @@ public class ContaService implements IService<Conta> {
         historicos.add(new Historico(Utils.valorFormatado(valor), Operacao.SAQUE, contaDebitada, null));
     }
 
-    private void realizarSaque(long valor, Conta contaDebitada) throws Exception {
+    private void realizarSaque(long valor, Conta conta) throws Exception {
         if (valor <= 0) {
             throw new Exception("Valor deve ser maior que 0");
         }
-        long novoSaldo = contaDebitada.getSaldo() - valor;
+        if (conta.isBloqueada()) {
+            throw new Exception("Conta está bloqueada.");
+        }
+        long novoSaldo = conta.getSaldo() - valor;
         if (novoSaldo < 0) {
             throw new Exception("Não existe saldo suficiente para este saque.");
         }
-        contaDebitada.setSaldo(novoSaldo);
+        atualizarSaldoDaConta(novoSaldo, conta);
     }
 
     public void imprimirHistorico(Conta conta) {
