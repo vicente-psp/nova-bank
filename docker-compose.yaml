@@ -1,0 +1,6 @@
+services:
+  novabank:
+    build: .
+    image: novabank-java
+    stdin_open: true
+    tty: true
