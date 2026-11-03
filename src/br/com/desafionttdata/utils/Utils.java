@@ -6,8 +6,20 @@ public class Utils {
     public static int intValue(Scanner sc) {
         do {
             try {
-                String menuStr = sc.next();
-                return new Integer(menuStr);
+                String menuStr = sc.nextLine();
+                return Integer.parseInt(menuStr);
+            } catch (Exception e) {
+                System.out.println("== VALOR INVÁLIDO ==");
+                System.out.println("Digite novamente!");
+            }
+        } while (true);
+    }
+
+    public static long longValue(Scanner sc) {
+        do {
+            try {
+                String menuStr = sc.nextLine();
+                return Long.parseLong(menuStr);
             } catch (Exception e) {
                 System.out.println("== VALOR INVÁLIDO ==");
                 System.out.println("Digite novamente!");
@@ -30,7 +42,7 @@ public class Utils {
         String novoValor = "";
         char[] values = valor.toCharArray();
         int contador = 1;
-        for (int i = values.length - 1; i >= 0; i--) { // 7
+        for (int i = values.length - 1; i >= 0; i--) {
             if (contador % 3 == 0) {
                 if (values.length == contador) {
                     novoValor = values[i] + novoValor;

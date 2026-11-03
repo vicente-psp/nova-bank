@@ -14,10 +14,7 @@ public class ClienteService implements IService<Cliente> {
 
     private static ClienteService clienteService;
 
-    private ClienteService() {
-        Cliente cliente = Cliente.builder().nome("José").cpf("11111111111").email("email@teste").build();
-        clientes.add(cliente);
-    }
+    private ClienteService() { }
 
     public static ClienteService getClienteService() {
         if (clienteService == null) {
@@ -27,18 +24,20 @@ public class ClienteService implements IService<Cliente> {
     }
 
     public void listar() {
-        System.out.println("Listando os clientes");
-        clientes.forEach(obj -> System.out.println(obj.toString()));
+        System.out.println("Listando os clientes...");
+        if (clientes.isEmpty()) {
+            System.out.println("Ainda não possui clientes cadastradas");
+        } else {
+            clientes.forEach(obj -> System.out.println(obj.toString()));
+        }
     }
 
-    public void buscarByCPF(String cpf) {
+    public Cliente buscarPorCPF(String cpf) throws Exception {
         Cliente cliente = getClienteByCpf(cpf);
         if (cliente == null) {
-            System.out.println("Cliente não encontrado");
-        } else {
-            cliente.setNome("Lincon");
-            System.out.println("Cliente: " + cliente.toString());
+            throw new Exception("Cliente não encontrado");
         }
+        return cliente;
     }
 
     public void atualizarCliente() throws Exception {

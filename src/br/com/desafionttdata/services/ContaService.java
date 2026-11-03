@@ -18,10 +18,20 @@ import java.util.stream.Collectors;
 
 public class ContaService implements IService<Conta> {
     static ClienteService clienteService = ClienteService.getClienteService();
+    private static ContaService contaService;
 
     List<Conta> contas = new ArrayList<>();
     List<Historico> historicos = new ArrayList<>();
     Scanner sc = new Scanner(System.in);
+
+    private ContaService() { }
+
+    public static ContaService getContaService() {
+        if (contaService == null) {
+            contaService = new ContaService();
+        }
+        return contaService;
+    }
 
     private void atualizarSaldoDaConta(long novoSaldo, Conta conta) {
         contas.forEach(obj -> {
@@ -31,23 +41,22 @@ public class ContaService implements IService<Conta> {
         });
     }
 
-    public ContaService() {
-        Cliente cliente = Cliente.builder().nome("José").cpf("11111111111").build();
-        contas.add(new Conta(1010, cliente));
-        contas.add(new Conta(1011, cliente));
-    }
-
     @Override
     public void cadastrar() throws Exception {
         System.out.println("Cadastrando uma nova conta");
         System.out.println("Informe o número da conta");
         int numero = sc.nextInt();
+        if (buscarPorNumero(numero) != null) {
+            throw new Exception("Conta " + numero + " já cadastrada!");
+        }
+
         System.out.println("Informe o cpf do cliente");
         String cpf = sc.next();
         Cliente cliente = clienteService.getClienteByCpf(cpf);
         if (cliente == null) {
             throw new Exception("Cliente não localizado");
         }
+
         Conta conta = new Conta(numero, cliente);
         contas.add(conta);
         System.out.println("Conta cadastrada com sucesso!");
@@ -55,16 +64,16 @@ public class ContaService implements IService<Conta> {
 
     @Override
     public void listar() {
-        System.out.println("Listando as contas");
-        contas.forEach(obj -> System.out.println(obj.toString()));
+        System.out.println("Listando as contas...");
+        if (contas.isEmpty()) {
+            System.out.println("Ainda não possui contas cadastradas");
+        } else {
+            contas.forEach(obj -> System.out.println(obj.toString()));
+        }
     }
 
-    public Conta buscarByNumero(int numeroConta) throws Exception {
-        Conta conta = contas.stream().filter(obj -> obj.getNumero() == numeroConta).findFirst().map(Conta::copy).orElse(null);
-        if (conta == null) {
-            throw new Exception("Conta " + numeroConta + " não foi localizada.");
-        }
-        return conta;
+    public Conta buscarPorNumero(int numeroConta) throws Exception {
+        return contas.stream().filter(obj -> obj.getNumero() == numeroConta).findFirst().map(Conta::copy).orElse(null);
     }
 
     public void transferir(long valor, Conta contaDebitada, Conta contaCreditada) throws Exception {
