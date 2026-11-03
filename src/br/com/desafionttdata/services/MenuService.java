@@ -7,10 +7,16 @@ import br.com.desafionttdata.utils.Utils;
 import java.util.Scanner;
 
 public class MenuService {
-    ClienteService clienteService = ClienteService.getClienteService();
-    ContaService contaService = ContaService.getContaService();
-    Scanner sc = new Scanner(System.in);
-    int menu = -1;
+    private final ClienteService clienteService;
+    private final ContaService contaService;
+    private final Scanner sc = new Scanner(System.in);
+    private int menu = -1;
+
+    public MenuService(ClienteService clienteService, ContaService contaService) {
+        this.clienteService = clienteService;
+        this.contaService = contaService;
+
+    }
 
     public void iniciar() {
         do {
