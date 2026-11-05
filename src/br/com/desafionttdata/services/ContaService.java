@@ -45,13 +45,13 @@ public class ContaService implements IService<Conta> {
     public void cadastrar() throws Exception {
         System.out.println("Cadastrando uma nova conta");
         System.out.println("Informe o número da conta");
-        int numero = sc.nextInt();
+        int numero = Utils.intValue(sc);
         if (buscarPorNumero(numero) != null) {
             throw new Exception("Conta " + numero + " já cadastrada!");
         }
 
         System.out.println("Informe o cpf do cliente");
-        String cpf = sc.next();
+        String cpf = sc.nextLine();
         Cliente cliente = clienteService.getClienteByCpf(cpf);
         if (cliente == null) {
             throw new Exception("Cliente não localizado");

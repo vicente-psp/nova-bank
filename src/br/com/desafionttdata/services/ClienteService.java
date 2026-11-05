@@ -43,17 +43,17 @@ public class ClienteService implements IService<Cliente> {
     public void atualizarCliente() throws Exception {
         System.out.println("Atualizando um cliente");
         System.out.println("Informe o cpf");
-        String cpf = sc.next();
+        String cpf = sc.nextLine();
         Cliente cliente = getClienteByCpf(cpf); // x0D1sds
         if (cliente != null) {
             System.out.println("Informe o nome");
-            String nome = sc.next();
+            String nome = sc.nextLine();
 
             cliente.setNome(nome);
             if (!cliente.isValidoNome()) {
                 throw new Exception("Nome Inválido");
             } else {
-                sc.nextLine(); // para parar com o pulo na hora de capturar o valor do terminal
+//                sc.nextLine(); // para parar com o pulo na hora de capturar o valor do terminal
                 System.out.println("Informe o email");
                 String email = sc.nextLine();
                 cliente.setEmail(email);
@@ -77,19 +77,19 @@ public class ClienteService implements IService<Cliente> {
     public void cadastrar() throws Exception {
         System.out.println("Cadastrando um cliente");
         System.out.println("Informe o nome");
-        String nome = sc.next();
+        String nome = sc.nextLine();
         if (!Utils.isValidoTexto(nome)) {
             throw new Exception("Nome Inválido");
         }
         System.out.println("Informe o cpf");
-        String cpf = sc.next();
+        String cpf = sc.nextLine();
         if (!Utils.isValidoCPF(cpf)) {
             throw new Exception("CPF Inválido");
         }
 
         Cliente clienteDuplicado = getClienteByCpf(cpf);
         if (clienteDuplicado == null) {
-            sc.nextLine(); // para parar com o pulo na hora de capturar o valor do terminal
+//            sc.nextLine(); // para parar com o pulo na hora de capturar o valor do terminal
             System.out.println("Informe o email");
             String email = sc.nextLine();
             System.out.println("Informe o telefone");
