@@ -44,7 +44,7 @@ public class ClienteService implements IService<Cliente> {
         System.out.println("Atualizando um cliente");
         System.out.println("Informe o cpf");
         String cpf = sc.nextLine();
-        Cliente cliente = getClienteByCpf(cpf); // x0D1sds
+        Cliente cliente = getClienteByCpf(cpf);
         if (cliente != null) {
             System.out.println("Informe o nome");
             String nome = sc.nextLine();
@@ -53,7 +53,6 @@ public class ClienteService implements IService<Cliente> {
             if (!cliente.isValidoNome()) {
                 throw new Exception("Nome Inválido");
             } else {
-//                sc.nextLine(); // para parar com o pulo na hora de capturar o valor do terminal
                 System.out.println("Informe o email");
                 String email = sc.nextLine();
                 cliente.setEmail(email);
@@ -89,7 +88,6 @@ public class ClienteService implements IService<Cliente> {
 
         Cliente clienteDuplicado = getClienteByCpf(cpf);
         if (clienteDuplicado == null) {
-//            sc.nextLine(); // para parar com o pulo na hora de capturar o valor do terminal
             System.out.println("Informe o email");
             String email = sc.nextLine();
             System.out.println("Informe o telefone");
