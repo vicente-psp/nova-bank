@@ -133,7 +133,7 @@ public class ContaService implements IService<Conta> {
                     return achouConta(conta, obj);
                 })
                 .map(obj -> {
-                    if (obj.getContaDebitada() != null) {
+                    if (obj.getContaDebitada() != null && obj.getContaDebitada().getNumero() == conta.getNumero()) {
                         obj.setTipo(Tipo.DEBITO);
                     } else {
                         obj.setTipo(Tipo.CREDITO);

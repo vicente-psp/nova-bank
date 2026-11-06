@@ -8,7 +8,7 @@
 
 ### Aplicação desenvolvida ao vivo (em lives no YouTube)
 - Playlist: [Desafio de Java - NTT DATA](https://studio.youtube.com/playlist/PLZN0s4Cu1PYs/videos)
-- Minutagem dos testes da aplicação: a partir do minuto 1:34:00
+- Minutagem dos testes da aplicação: a partir do minuto 1:57:00
 
 ### Evidências da aplicação em execução
 ![nova-bank rodando no Docker](./docker.png)
